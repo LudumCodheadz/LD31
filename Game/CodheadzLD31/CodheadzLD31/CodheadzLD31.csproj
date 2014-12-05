@@ -41,6 +41,11 @@
     <Compile Include="Components\MainMenuComponent.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
     <Compile Include="GameStates\GameStates.cs" />
+    <Compile Include="Graphics\ParticleEffects\ParticleManager.cs" />
+    <Compile Include="Graphics\SceneGraph\ScreenNode.cs" />
+    <Compile Include="Graphics\SceneGraph\SpriteFontScreenNode.cs" />
+    <Compile Include="Graphics\SceneGraph\SpriteScreenNode.cs" />
+    <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\InputState.cs" />
     <Compile Include="LDGame.cs" />
@@ -50,6 +55,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Messages\TinyMessenger.cs" />
+    <Compile Include="Utils\Extensions.cs" />
+    <Compile Include="Utils\Timers\DisplayTimerExtensions.cs" />
+    <Compile Include="Utils\Timers\Timer.cs" />
+    <Compile Include="Utils\Timers\TimerMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
