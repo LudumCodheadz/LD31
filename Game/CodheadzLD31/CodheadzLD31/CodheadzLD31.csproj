@@ -37,10 +37,14 @@
   <ItemGroup>
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Components\DebugComponent.cs" />
+    <Compile Include="Components\InputTestComponent.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
     <Compile Include="GameStates\GameStates.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Input\InputState.cs" />
     <Compile Include="LDGame.cs" />
     <Compile Include="Messages\GameStateChangeMessage.cs" />
+    <Compile Include="Messages\InputChangeStateMessage.cs" />
     <Compile Include="Messages\Messenger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

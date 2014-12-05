@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using CodheadzLD31.Components;
 using CodheadzLD31.GameStates;
+using CodheadzLD31.Input;
 
 namespace CodheadzLD31
 {
@@ -23,6 +24,7 @@ namespace CodheadzLD31
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
         }
 
         protected override void Initialize()
@@ -34,6 +36,13 @@ namespace CodheadzLD31
             var gameStateManager = new GameStateManager(this);
             this.Services.AddService(gameStateManager);
             this.Components.Add(gameStateManager);
+
+            var inputManager = new InputManager(this);
+            this.Components.Add(inputManager);
+
+            var inputTest = new InputTestComponent(this);
+            this.Components.Add(inputTest);
+
             base.Initialize();
             
         }
