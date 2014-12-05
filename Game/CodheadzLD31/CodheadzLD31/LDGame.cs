@@ -43,6 +43,9 @@ namespace CodheadzLD31
             var inputTest = new InputTestComponent(this);
             this.Components.Add(inputTest);
 
+            var mainMenu = new MainMenuComponent(this);
+            this.Components.Add(mainMenu);
+
             base.Initialize();
             
         }

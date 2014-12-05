@@ -38,6 +38,7 @@
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Components\DebugComponent.cs" />
     <Compile Include="Components\InputTestComponent.cs" />
+    <Compile Include="Components\MainMenuComponent.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
     <Compile Include="GameStates\GameStates.cs" />
     <Compile Include="Input\InputManager.cs" />
@@ -72,6 +73,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\Content\bin\Fonts\Large.xnb">
+      <Link>Content\Fonts\Large.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
