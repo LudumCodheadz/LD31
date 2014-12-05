@@ -10,7 +10,7 @@ namespace CodheadzLD31.Components
     public class ComponentBase:DrawableGameComponent
     {
         protected Texture2D pixel;
-        protected SpriteFont debugFont;
+        protected SpriteFont normalFont;
         protected SpriteBatch spriteBatch;
 
         public ComponentBase(LDGame game)
@@ -29,7 +29,7 @@ namespace CodheadzLD31.Components
         {
             base.LoadContent();
             pixel = Game.Content.Load<Texture2D>("Sprites\\Pixel");
-            debugFont = Game.Content.Load<SpriteFont>("Fonts\\Normal");
+            normalFont = Game.Content.Load<SpriteFont>("Fonts\\Normal");
         }
     }
 }

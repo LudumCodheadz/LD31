@@ -30,3 +30,9 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/pixel.bmp
 
+#begin Fonts/Large.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Large.spritefont
+

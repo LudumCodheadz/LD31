@@ -25,7 +25,7 @@ namespace CodheadzLD31.Components
             base.Draw(gameTime);
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(debugFont, "Whoo hooo", new Vector2(10, 10), Color.Yellow);
+            spriteBatch.DrawString(normalFont, "Whoo hooo", new Vector2(10, 10), Color.Yellow);
             spriteBatch.End();
         }
     }

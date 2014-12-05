@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using CodheadzLD31.Components;
+using CodheadzLD31.GameStates;
 
 namespace CodheadzLD31
 {
@@ -26,8 +28,12 @@ namespace CodheadzLD31
         protected override void Initialize()
         {
             
-            var debug = new Components.DebugComponent(this);
+            var debug = new DebugComponent(this);
             this.Components.Add(debug);
+
+            var gameStateManager = new GameStateManager(this);
+            this.Services.AddService(gameStateManager);
+            this.Components.Add(gameStateManager);
             base.Initialize();
             
         }
