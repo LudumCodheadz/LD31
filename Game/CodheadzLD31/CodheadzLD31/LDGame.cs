@@ -1,13 +1,10 @@
-﻿#region Using Statements
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
-#endregion
 
 namespace CodheadzLD31
 {
@@ -26,17 +23,13 @@ namespace CodheadzLD31
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            
+            var debug = new Components.DebugComponent(this);
+            this.Components.Add(debug);
             base.Initialize();
+            
         }
 
         /// <summary>

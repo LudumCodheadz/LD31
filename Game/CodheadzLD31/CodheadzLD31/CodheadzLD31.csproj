@@ -35,6 +35,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\ComponentBase.cs" />
+    <Compile Include="Components\DebugComponent.cs" />
     <Compile Include="LDGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -49,8 +51,16 @@
   <ItemGroup>
     <Content Include="Icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Content\" />
+    <Content Include="..\..\Content\bin\Fonts\Normal.xnb">
+      <Link>Content\Fonts\Normal.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Content\bin\Sprites\pixel.xnb">
+      <Link>Content\Sprites\pixel.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
