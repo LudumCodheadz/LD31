@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -37,6 +38,8 @@
   <ItemGroup>
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Components\DebugComponent.cs" />
+    <Compile Include="Components\GamePlay\TurdNode.cs" />
+    <Compile Include="Components\GamePlay\BottomNode.cs" />
     <Compile Include="Components\InputTestComponent.cs" />
     <Compile Include="Components\LevelComponent.cs" />
     <Compile Include="Components\LevelManagerComponent.cs" />
@@ -100,6 +103,10 @@
     </Content>
     <Content Include="..\..\Content\bin\Sprites\Toilet.xnb">
       <Link>Content\Sprites\Toilet.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Content\bin\Sprites\bottom.xnb">
+      <Link>Content\Sprites\bottom.xnb</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

@@ -1,4 +1,5 @@
-﻿using CodheadzLD31.Graphics.SceneGraph;
+﻿using CodheadzLD31.Components.GamePlay;
+using CodheadzLD31.Graphics.SceneGraph;
 using CodheadzLD31.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,10 +13,10 @@ namespace CodheadzLD31.Components
 {
     public class PlayerComponent: ComponentBase
     {
-        private float gravityRate = 0.1f;
+        private TurdNode turdNode;
+        private BottomNode bottomRoot;
+        
         private InputManager inputManager;
-        private ScreenNode playerRoot;
-        private SpriteScreenNode turdBody;
         private TinyMessenger.TinyMessageSubscriptionToken levelStartToken;
         
         public PlayerComponent(LDGame game):base(game)
@@ -26,41 +27,38 @@ namespace CodheadzLD31.Components
 
         private void OnLevelStart(Messages.LevelStartMessage obj)
         {
-            ResetPlayerPosition();
-        }
-
-        private void ResetPlayerPosition()
-        {
-            int x = (Game.GraphicsDevice.PresentationParameters.BackBufferWidth - turdBody.Sprite.Rectangle.Width) / 2;
-            this.playerRoot.Offset = new Vector2(x, 0);
+            turdNode.ResetPlayerPosition();
         }
 
         protected override void LoadContent()
         {
             base.LoadContent();
-            playerRoot = new ScreenNode(this.Game);
-            turdBody = new SpriteScreenNode(Game, "Sprites\\Player");
-            playerRoot.AddChild(turdBody);
-            playerRoot.Update(new GameTime());
-            
-            ResetPlayerPosition();
+
+            bottomRoot = new BottomNode(this.Game);
+            turdNode = new TurdNode(this.Game);
+
+        }
+
+        private ScreenNode BottomNode(Microsoft.Xna.Framework.Game game)
+        {
+            throw new NotImplementedException();
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Update(gameTime);
 
-            playerRoot.Update(gameTime);
-            float x = playerRoot.Offset.X;
-            float y = playerRoot.Offset.Y + gameTime.ElapsedGameTime.Milliseconds * gravityRate;
-            playerRoot.Offset = new Vector2(x, y);
+            turdNode.Update(gameTime);
+        
+            bottomRoot.Update(gameTime);
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Draw(gameTime);
             spriteBatch.Begin();
-            turdBody.Draw(gameTime, spriteBatch);
+            turdNode.Draw(gameTime, spriteBatch);
+            bottomRoot.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
     }
