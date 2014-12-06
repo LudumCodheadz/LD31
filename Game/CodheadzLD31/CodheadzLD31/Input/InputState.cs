@@ -28,5 +28,10 @@ namespace CodheadzLD31.Input
         {
             return PressedKeys.Contains(key);
         }
+
+        public bool IsReleased()
+        {
+            return PressedKeys.Count() == 0 && !LeftMouseClicked && !RightMouseClicked;
+        }
     }
 }

@@ -45,6 +45,7 @@
     <Compile Include="Components\LevelManagerComponent.cs" />
     <Compile Include="Components\MainMenuComponent.cs" />
     <Compile Include="Components\PlayerComponent.cs" />
+    <Compile Include="Components\PlayerState.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
     <Compile Include="GameStates\GameStates.cs" />
     <Compile Include="Graphics\ParticleEffects\ParticleManager.cs" />

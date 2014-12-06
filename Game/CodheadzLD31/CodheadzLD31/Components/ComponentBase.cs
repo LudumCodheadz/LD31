@@ -1,9 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CodheadzLD31.GameStates;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CodheadzLD31.Components
 {
@@ -20,6 +17,7 @@ namespace CodheadzLD31.Components
         {
             spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
             onGameStateChange = Messages.Messenger.Default.Subscribe<Messages.GameStateChangeMessage>(OnGameStateChange);
+            GameStateManager = game.Services.GetService<GameStateManager>();
         }
         protected virtual void OnGameStateChange(Messages.GameStateChangeMessage obj)
         {
@@ -38,5 +36,7 @@ namespace CodheadzLD31.Components
             normalFont = Game.Content.Load<SpriteFont>("Fonts\\Normal");
             largeFont = Game.Content.Load<SpriteFont>("Fonts\\Large");
         }
+
+        public GameStateManager GameStateManager { get; private set; }
     }
 }

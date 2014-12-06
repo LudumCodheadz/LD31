@@ -33,10 +33,8 @@ namespace CodheadzLD31.Components
 
         private void OnInput(Messages.InputChangeStateMessage obj)
         {
-            if(obj.Content.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Space))
-            {
+            if(GameStateManager.CurrentState == GameStates.GameStates.MainMenu)
                 Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.Playing));
-            }
         }
 
         protected override void LoadContent()

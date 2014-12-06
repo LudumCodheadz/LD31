@@ -9,7 +9,10 @@ namespace CodheadzLD31.Components.GamePlay
 {
     public class TurdNode:ScreenNode
     {
-        private float gravityRate = 0.1f;
+        private const float stopRate = 0.0f;
+        private const float droppingRate = 0.3f;
+        private const float chuteRate = 0.15f;
+        private float gravityRate = 0.0f;
         private SpriteScreenNode turdBody;
 
         public TurdNode(Game game)
@@ -44,6 +47,21 @@ namespace CodheadzLD31.Components.GamePlay
         public void Launch(Vector2 position)
         {
             this.IsEnabled = true;
+        }
+
+        internal void StartDropping()
+        {
+            gravityRate = droppingRate;
+        }
+
+        internal void OpenChute()
+        {
+            gravityRate = chuteRate;
+        }
+
+        internal void CutChute()
+        {
+            gravityRate = droppingRate;
         }
     }
 }
