@@ -36,20 +36,13 @@ namespace CodheadzLD31.Components
 
             bottomRoot = new BottomNode(this.Game);
             turdNode = new TurdNode(this.Game);
-
         }
-
-        private ScreenNode BottomNode(Microsoft.Xna.Framework.Game game)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Update(gameTime);
 
             turdNode.Update(gameTime);
-        
             bottomRoot.Update(gameTime);
         }
 

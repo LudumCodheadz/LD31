@@ -11,7 +11,7 @@ namespace CodheadzLD31.Components.GamePlay
     {
         private int leftCheckBound = 0;
         private int rightCheckBound = 0;
-        private float moveRate = 0.16f;
+        private float moveRate = 0.10f;
         private SpriteScreenNode bottomSprite;
 
         public BottomNode(Game game):base(game)
