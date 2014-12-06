@@ -12,9 +12,10 @@ namespace CodheadzLD31.Components
 {
     public class PlayerComponent: ComponentBase
     {
-        private float moveRate = 0.03f;
+        private float gravityRate = 0.1f;
         private InputManager inputManager;
-        private SpriteScreenNode  playerNode;
+        private ScreenNode playerRoot;
+        private SpriteScreenNode turdBody;
         private TinyMessenger.TinyMessageSubscriptionToken levelStartToken;
         
         public PlayerComponent(LDGame game):base(game)
@@ -30,30 +31,36 @@ namespace CodheadzLD31.Components
 
         private void ResetPlayerPosition()
         {
-            int x = (Game.GraphicsDevice.PresentationParameters.BackBufferWidth - playerNode.Sprite.Rectangle.Width) / 2;
-            this.playerNode.Offset = new Vector2(x, 0);
+            int x = (Game.GraphicsDevice.PresentationParameters.BackBufferWidth - turdBody.Sprite.Rectangle.Width) / 2;
+            this.playerRoot.Offset = new Vector2(x, 0);
         }
 
         protected override void LoadContent()
         {
             base.LoadContent();
-            playerNode = new SpriteScreenNode(Game, "Sprites\\Player");
-            playerNode.Update(new GameTime());
+            playerRoot = new ScreenNode(this.Game);
+            turdBody = new SpriteScreenNode(Game, "Sprites\\Player");
+            playerRoot.AddChild(turdBody);
+            playerRoot.Update(new GameTime());
+            
             ResetPlayerPosition();
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Update(gameTime);
-        
-            playerNode.Update(gameTime);
+
+            playerRoot.Update(gameTime);
+            float x = playerRoot.Offset.X;
+            float y = playerRoot.Offset.Y + gameTime.ElapsedGameTime.Milliseconds * gravityRate;
+            playerRoot.Offset = new Vector2(x, y);
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Draw(gameTime);
             spriteBatch.Begin();
-            playerNode.Draw(gameTime, spriteBatch);
+            turdBody.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
     }
