@@ -39,6 +39,7 @@
     <Compile Include="Components\DebugComponent.cs" />
     <Compile Include="Components\InputTestComponent.cs" />
     <Compile Include="Components\LevelComponent.cs" />
+    <Compile Include="Components\LevelManagerComponent.cs" />
     <Compile Include="Components\MainMenuComponent.cs" />
     <Compile Include="Components\PlayerComponent.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="LDGame.cs" />
     <Compile Include="Messages\GameStateChangeMessage.cs" />
     <Compile Include="Messages\InputChangeStateMessage.cs" />
+    <Compile Include="Messages\LevelStartMessage.cs" />
     <Compile Include="Messages\Messenger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

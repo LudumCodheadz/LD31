@@ -41,7 +41,7 @@ namespace CodheadzLD31
 
             var inputManager = new InputManager(this);
             this.Components.Add(inputManager);
-            this.Services.AddService(typeof(InputManager), inputManager);
+            this.Services.AddService(inputManager);
 
             var inputTest = new InputTestComponent(this);
             this.Components.Add(inputTest);
@@ -55,6 +55,9 @@ namespace CodheadzLD31
             var level = new LevelComponent(this);
             this.Components.Add(level);
 
+            var levelManager = new LevelManagerComponent(this);
+            this.Components.Add(levelManager);
+            this.Services.AddService(levelManager);
             base.Initialize();
             
         }

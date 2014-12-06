@@ -15,32 +15,37 @@ namespace CodheadzLD31.Components
         private float moveRate = 0.03f;
         private InputManager inputManager;
         private SpriteScreenNode  playerNode;
+        private TinyMessenger.TinyMessageSubscriptionToken levelStartToken;
         
         public PlayerComponent(LDGame game):base(game)
         {
             inputManager = game.Services.GetService<InputManager>();
+            levelStartToken = Messages.Messenger.Default.Subscribe<Messages.LevelStartMessage>(OnLevelStart);
+        }
+
+        private void OnLevelStart(Messages.LevelStartMessage obj)
+        {
+            ResetPlayerPosition();
+        }
+
+        private void ResetPlayerPosition()
+        {
+            int x = (Game.GraphicsDevice.PresentationParameters.BackBufferWidth - playerNode.Sprite.Rectangle.Width) / 2;
+            this.playerNode.Offset = new Vector2(x, 0);
         }
 
         protected override void LoadContent()
         {
             base.LoadContent();
             playerNode = new SpriteScreenNode(Game, "Sprites\\Player");
-            playerNode.Offset = new Microsoft.Xna.Framework.Vector2(400, 100);
+            playerNode.Update(new GameTime());
+            ResetPlayerPosition();
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Update(gameTime);
-            if(inputManager.IsKeyDown(Keys.A) || inputManager.IsKeyDown(Keys.Left))
-            {
-                playerNode.Offset = playerNode.Offset - new Vector2(gameTime.ElapsedGameTime.Milliseconds * moveRate, 0);
-            }
-
-            if (inputManager.IsKeyDown(Keys.D) || inputManager.IsKeyDown(Keys.Right))
-            {
-                playerNode.Offset = playerNode.Offset + new Vector2(gameTime.ElapsedGameTime.Milliseconds * moveRate, 0);
-            }
-
+        
             playerNode.Update(gameTime);
         }
 
