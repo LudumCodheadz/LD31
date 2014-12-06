@@ -43,7 +43,7 @@ namespace CodheadzLD31.Components
             base.LoadContent();
 
             int x = (int)(GraphicsDevice.PresentationParameters.BackBufferWidth - largeFont.MeasureString(playText).X)/2;
-            int y = GraphicsDevice.PresentationParameters.BackBufferHeight - 100;
+            int y = GraphicsDevice.PresentationParameters.BackBufferHeight/2;
             playPosition = new Vector2(x, y);
         }
 
@@ -51,7 +51,7 @@ namespace CodheadzLD31.Components
         {
             base.Draw(gameTime);
             spriteBatch.Begin();
-            spriteBatch.DrawString(largeFont, playText, playPosition, Color.DarkGreen);
+            spriteBatch.DrawString(largeFont, playText, playPosition, Color.DarkBlue);
             spriteBatch.End();
         }
 
