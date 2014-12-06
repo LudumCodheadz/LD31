@@ -23,6 +23,8 @@ namespace CodheadzLD31
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 700;
+            graphics.PreferredBackBufferWidth = 480;
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }
