@@ -11,7 +11,7 @@ namespace CodheadzLD31.Components.GamePlay
     {
         private const float stopRate = 0.0f;
         private const float droppingRate = 0.3f;
-        private const float chuteRate = 0.15f;
+        private const float chuteRate = 0.075f;
         private float gravityRate = 0.0f;
         private SpriteScreenNode turdBody;
 
@@ -51,6 +51,7 @@ namespace CodheadzLD31.Components.GamePlay
 
         internal void StartDropping()
         {
+            this.Offset = new Vector2(this.ExhaustPort.X, 0);
             gravityRate = droppingRate;
         }
 
@@ -63,5 +64,7 @@ namespace CodheadzLD31.Components.GamePlay
         {
             gravityRate = droppingRate;
         }
+
+        public Vector2 ExhaustPort { get; set; }
     }
 }

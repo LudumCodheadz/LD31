@@ -25,7 +25,7 @@ namespace CodheadzLD31.Components.GamePlay
             leftCheckBound = -20;
             rightCheckBound = game.GraphicsDevice.PresentationParameters.BackBufferWidth - bottomSprite.Sprite.Rectangle.Width + 20;
         }
-
+        
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -36,5 +36,14 @@ namespace CodheadzLD31.Components.GamePlay
                 moveRate = moveRate * -1;
         }
 
+        public Vector2 ExhaustPort
+        {
+            get
+            {
+                int y = 0;
+                int x = (int)( bottomSprite.Sprite.Position.X +  (bottomSprite.Sprite.Rectangle.Width / 2));
+                return new Vector2(x, y);
+            }
+        }
     }
 }
