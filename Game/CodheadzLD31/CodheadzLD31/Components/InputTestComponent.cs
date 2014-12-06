@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CodheadzLD31.Utils;
 
 namespace CodheadzLD31.Components
 {
@@ -27,7 +28,7 @@ namespace CodheadzLD31.Components
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Draw(gameTime);
-            spriteBatch.Begin();
+            spriteBatch.BeginPixel();
             spriteBatch.DrawString(normalFont, state, new Vector2(50,50),Color.Red);
             spriteBatch.End();
         }

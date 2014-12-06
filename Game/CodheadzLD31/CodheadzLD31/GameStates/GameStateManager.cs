@@ -26,7 +26,7 @@ namespace CodheadzLD31.GameStates
             base.Draw(gameTime);
 #if DEBUG
             var x = this.GraphicsDevice.PresentationParameters.BackBufferWidth - 100;
-            spriteBatch.Begin();
+            spriteBatch.BeginPixel();
             spriteBatch.DrawString(this.normalFont, this.CurrentState.ToString(), new Vector2(x, 10), Color.Yellow);
             spriteBatch.End();
 #endif

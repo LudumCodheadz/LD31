@@ -1,13 +1,6 @@
 ﻿using CodheadzLD31.Components.GamePlay;
-using CodheadzLD31.Graphics.SceneGraph;
 using CodheadzLD31.Input;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using CodheadzLD31.Utils;
 
 namespace CodheadzLD31.Components
 {
@@ -49,7 +42,7 @@ namespace CodheadzLD31.Components
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Draw(gameTime);
-            spriteBatch.Begin();
+            spriteBatch.BeginPixel();
             turdNode.Draw(gameTime, spriteBatch);
             bottomRoot.Draw(gameTime, spriteBatch);
             spriteBatch.End();

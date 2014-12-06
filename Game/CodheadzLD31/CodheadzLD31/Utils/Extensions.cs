@@ -28,6 +28,11 @@ namespace CodheadzLD31.Utils
             spriteBatch.DrawLine(new Vector2(drawRectangle.Right, drawRectangle.Top), new Vector2(drawRectangle.Right, drawRectangle.Bottom), color, pixel, thickness);
         }
 
+        public static void BeginPixel(this SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+        }
+
         public static float ToAngle(this Vector2 vector)
         {
             return (float)Math.Atan2(vector.Y, vector.X);

@@ -16,7 +16,8 @@ namespace CodheadzLD31.Components.GamePlay
             : base(game)
         {
             new ScreenNode(this.Game);
-            turdBody = new SpriteScreenNode(Game, "Sprites\\Player");
+            turdBody = new SpriteScreenNode(Game, "Sprites\\Turd");
+            turdBody.Scale = 1.5f;
             this.AddChild(turdBody);
             this.Update(new GameTime());
             ResetPlayerPosition();

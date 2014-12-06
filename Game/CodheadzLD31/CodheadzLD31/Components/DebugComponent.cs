@@ -1,9 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using CodheadzLD31.Utils;
+using Microsoft.Xna.Framework;
 
 namespace CodheadzLD31.Components
 {
@@ -24,7 +20,7 @@ namespace CodheadzLD31.Components
         {
             base.Draw(gameTime);
 
-            spriteBatch.Begin();
+            spriteBatch.BeginPixel();
             spriteBatch.DrawString(normalFont, "Whoo hooo", new Vector2(10, 10), Color.Yellow);
             spriteBatch.End();
         }

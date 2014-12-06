@@ -1,9 +1,6 @@
 ﻿using CodheadzLD31.Graphics.SceneGraph;
+using CodheadzLD31.Utils;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CodheadzLD31.Components
 {
@@ -51,7 +48,7 @@ namespace CodheadzLD31.Components
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            spriteBatch.Begin();
+            spriteBatch.BeginPixel();
             worldRoot.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
