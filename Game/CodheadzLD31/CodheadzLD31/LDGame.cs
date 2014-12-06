@@ -50,6 +50,9 @@ namespace CodheadzLD31
             var player = new PlayerComponent(this);
             this.Components.Add(player);
 
+            var level = new LevelComponent(this);
+            this.Components.Add(level);
+
             base.Initialize();
             
         }
