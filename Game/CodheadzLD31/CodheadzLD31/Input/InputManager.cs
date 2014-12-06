@@ -70,5 +70,15 @@ namespace CodheadzLD31.Input
                 Messages.Messenger.Default.Publish(new Messages.InputChangeStateMessage(this, new InputState() { RightMouseClicked = true, Position = currentMouseState.Position }));
             }
         }
+
+        public bool IsKeyDown(Keys key)
+        {
+            return currentKeyboardState.IsKeyDown(key);
+        }
+
+        public bool IsKeyUp(Keys key)
+        {
+            return currentKeyboardState.IsKeyUp(key);
+        }
     }
 }

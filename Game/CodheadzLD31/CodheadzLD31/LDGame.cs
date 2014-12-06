@@ -39,12 +39,16 @@ namespace CodheadzLD31
 
             var inputManager = new InputManager(this);
             this.Components.Add(inputManager);
+            this.Services.AddService(typeof(InputManager), inputManager);
 
             var inputTest = new InputTestComponent(this);
             this.Components.Add(inputTest);
 
             var mainMenu = new MainMenuComponent(this);
             this.Components.Add(mainMenu);
+
+            var player = new PlayerComponent(this);
+            this.Components.Add(player);
 
             base.Initialize();
             

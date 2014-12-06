@@ -34,7 +34,7 @@ namespace CodheadzLD31.Components
         protected override void LoadContent()
         {
             base.LoadContent();
-            pixel = Game.Content.Load<Texture2D>("Sprites\\Pixel");
+            pixel = Game.Content.Load<Texture2D>("Pixel");
             normalFont = Game.Content.Load<SpriteFont>("Fonts\\Normal");
             largeFont = Game.Content.Load<SpriteFont>("Fonts\\Large");
         }
