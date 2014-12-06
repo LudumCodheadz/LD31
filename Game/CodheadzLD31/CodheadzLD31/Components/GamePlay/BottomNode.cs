@@ -16,9 +16,9 @@ namespace CodheadzLD31.Components.GamePlay
 
         public BottomNode(Game game):base(game)
         {
-            this.Offset = new Vector2(0, -5f);
+            this.Offset = new Vector2(0, -10f);
             bottomSprite = new SpriteScreenNode(this.Game, "sprites/Bottom");
-            bottomSprite.Scale = 0.5f;
+            bottomSprite.Scale = 0.7f;
             this.AddChild(bottomSprite);
             this.Update(new GameTime());
 
