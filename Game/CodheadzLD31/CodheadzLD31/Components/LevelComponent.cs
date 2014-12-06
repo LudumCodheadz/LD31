@@ -10,6 +10,7 @@ namespace CodheadzLD31.Components
     public class LevelComponent:ComponentBase
     {
         private ScreenNode worldRoot;
+        private SpriteScreenNode toiletNode;
 
         public LevelComponent(LDGame game):base(game)
         {
@@ -21,14 +22,24 @@ namespace CodheadzLD31.Components
             base.LoadContent();
 
             worldRoot = new ScreenNode(this.Game);
-            for (int i = 0; i < 40; i++)
+            var groundNodes = new ScreenNode(this.Game);
+            int y = Game.GraphicsDevice.PresentationParameters.BackBufferHeight - (20 * 2);
+            groundNodes.Offset = new Vector2(0, y);
+            worldRoot.AddChild(groundNodes);
+            for (int i = 0; i < 20; i++)
             {
-                var block = new SpriteScreenNode(this.Game, "pixel");
-                block.Offset = new Microsoft.Xna.Framework.Vector2(i * 20, 300);
-                block.Scale = 10f;
-                block.Color = Color.LimeGreen;
-                worldRoot.AddChild(block);
+                var floor = new SpriteScreenNode(this.Game, "sprites/floor");
+                floor.Offset = new Microsoft.Xna.Framework.Vector2(i * 40, 0);
+                floor.Scale = 2;
+                floor.Color = Color.LimeGreen;
+                groundNodes.AddChild(floor);
             }
+
+            toiletNode = new SpriteScreenNode(this.Game, "sprites/Toilet");
+            toiletNode.Scale = 2;
+            y = (this.GraphicsDevice.PresentationParameters.BackBufferWidth - (28 * 2)) / 2;
+            toiletNode.Offset = new Vector2(y, groundNodes.Offset.Y - (46 * 2));
+            this.worldRoot.AddChild(toiletNode);
         }
 
         public override void Update(GameTime gameTime)

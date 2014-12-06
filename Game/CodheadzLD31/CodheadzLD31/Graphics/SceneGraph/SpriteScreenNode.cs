@@ -72,7 +72,6 @@ namespace CodheadzLD31.Graphics.SceneGraph
             {
                 sprite = new Sprite();
                 sprite.Texture = Game.Content.Load<Texture2D>(p);
-
                 sprite.DebugColor = new Color(Color.OrangeRed.R, Color.OrangeRed.G, Color.OrangeRed.B, 0.01f);
                 sprite.DebugTexture = Game.Content.Load<Texture2D>("pixel");
             }

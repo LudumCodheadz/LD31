@@ -92,6 +92,14 @@
       <Link>Content\Sprites\player.xnb</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\..\Content\bin\Sprites\floor.xnb">
+      <Link>Content\Sprites\floor.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Content\bin\Sprites\Toilet.xnb">
+      <Link>Content\Sprites\Toilet.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
