@@ -10,7 +10,7 @@ namespace CodheadzLD31.Components
 {
     public class LevelOverSummaryComponent : ComponentBase
     {
-        private List<string> deadSummaryStrings = new List<string>() { "Too Fast", "Died Too Young", "DEAD!" };
+        private List<string> deadSummaryStrings = new List<string>() { "You Landed Too Fast" };
         private List<string> aliveSummaryStrings = new List<string>() { "Well Done", "Top Drop", "You live to stink again" };
 
         private string summaryText = string.Empty;
@@ -32,6 +32,7 @@ namespace CodheadzLD31.Components
         public LevelOverSummaryComponent(LDGame game)
             : base(game)
         {
+            this.DrawOrder = 200;
             rnd = new Random();
             onLevelEndToken = Messenger.Default.Subscribe<LevelEndMessage>(OnLevelEnd);
             inputToken = Messages.Messenger.Default.Subscribe<Messages.InputChangeStateMessage>(OnInputChange);
@@ -46,7 +47,6 @@ namespace CodheadzLD31.Components
             {
                 if (allowNextState)
                 {
-
                     var playerHud = Game.Services.GetService<PlayerHudComponent>();
                     if (playerHud.Lives == 0)
                     {
@@ -59,9 +59,6 @@ namespace CodheadzLD31.Components
                         Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.Playing));
                     }
                 }
-
-                
-
             }
         }
 

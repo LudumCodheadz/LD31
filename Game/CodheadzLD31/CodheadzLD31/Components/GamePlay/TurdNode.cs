@@ -69,8 +69,8 @@ namespace CodheadzLD31.Components.GamePlay
 
             velocity += gameTime.ElapsedGameTime.Milliseconds * gravityRate;
 
-            if (velocity > 0.95)
-                velocity = 0.95f;
+            if (velocity > 0.75)
+                velocity = 0.75f;
 
             if (chuteState == ChuteState.Cut)
             {
@@ -79,8 +79,8 @@ namespace CodheadzLD31.Components.GamePlay
             }
             else
             {
-                if (chuteState == ChuteState.Opened && velocity > 0.05)
-                    velocity -= gameTime.ElapsedGameTime.Milliseconds * 0.002f;
+                if (chuteState == ChuteState.Opened && velocity > 0.075)
+                    velocity -= gameTime.ElapsedGameTime.Milliseconds * 0.003f;
 
                 chuteVelocity = velocity;
                 turdChute.Offset += new Vector2(0, chuteVelocity * gameTime.ElapsedGameTime.Milliseconds);

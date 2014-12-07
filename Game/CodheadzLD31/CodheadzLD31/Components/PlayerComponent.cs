@@ -24,6 +24,7 @@ namespace CodheadzLD31.Components
         public PlayerComponent(LDGame game)
             : base(game)
         {
+            this.DrawOrder = 100;
             levelComponent = Game.Services.GetService<LevelComponent>();
             levelManagerComponent = Game.Services.GetService<LevelManagerComponent>();
             levelStartToken = Messages.Messenger.Default.Subscribe<Messages.LevelStartMessage>(OnLevelStart);
@@ -99,8 +100,9 @@ namespace CodheadzLD31.Components
                 {
                     var result = new LevelResult();
                     result.Level = levelManagerComponent.CurrentLevel;
-                     
-                    if (turdNode.Velocity < 0.3f)
+                    result.FinalVelocity = turdNode.Velocity;
+ 
+                    if (turdNode.Velocity < 0.35f)
                     {
                         state = PlayerState.Down;
                         turdNode.Down(node.Sprite.Rectangle.Top);
@@ -116,6 +118,7 @@ namespace CodheadzLD31.Components
                     result.TurdCenter = turdNode.TurdCenter;
                     result.ToiletCenter = levelComponent.ToiletNode.ToiletCenter;
                     
+                    
                     Messages.Messenger.Default.Publish(new LevelEndMessage(this, result));
                     Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.LevelOver));
                     break;
@@ -129,7 +132,6 @@ namespace CodheadzLD31.Components
             spriteBatch.BeginPixel();
             turdNode.Draw(gameTime, spriteBatch);
             bottomRoot.Draw(gameTime, spriteBatch);
-            spriteBatch.DrawString(largeFont, state.ToString(), new Vector2(50, 300), Color.Red);
             spriteBatch.End();
         }
 

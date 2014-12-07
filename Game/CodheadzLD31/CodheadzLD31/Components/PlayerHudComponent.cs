@@ -16,6 +16,7 @@ namespace CodheadzLD31.Components
 
         public PlayerHudComponent(LDGame game):base(game)
         {
+            this.DrawOrder = 200;
             onLevelEndToken = Messages.Messenger.Default.Subscribe<Messages.LevelEndMessage>(OnLevelEnd);
         }
 

@@ -18,6 +18,7 @@ namespace CodheadzLD31.Components
         public EnvironmentComponent(LDGame game)
             :base(game)
         {
+            this.DrawOrder = 0;
             rnd = new Random();
             onLevelStartToken = Messages.Messenger.Default.Subscribe<Messages.LevelStartMessage>(OnLevelStart);
         }

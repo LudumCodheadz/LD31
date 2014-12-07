@@ -20,6 +20,7 @@ namespace CodheadzLD31.Components
         public GameOverComponent(LDGame game)
             : base(game)
         {
+            this.DrawOrder = 200;
             inputToken = Messages.Messenger.Default.Subscribe<Messages.InputChangeStateMessage>(OnInputChange);
             displayHoldTimer = new Utils.Timers.Timer(new TimeSpan(0, 0, 1), Utils.Timers.TimerMode.Single);
             displayHoldTimer.TimeReached += displayHoldTimer_TimeReached;

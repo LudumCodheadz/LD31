@@ -27,5 +27,7 @@ namespace CodheadzLD31.Components.GamePlay
         }
         
         public int TotalScore { get { return 999999; } }
+
+        public float FinalVelocity { get; set; }
     }
 }
