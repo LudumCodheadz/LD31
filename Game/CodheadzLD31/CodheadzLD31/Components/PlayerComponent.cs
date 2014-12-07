@@ -118,7 +118,6 @@ namespace CodheadzLD31.Components
                     result.TurdCenter = turdNode.TurdCenter;
                     result.ToiletCenter = levelComponent.ToiletNode.ToiletCenter;
                     
-                    
                     Messages.Messenger.Default.Publish(new LevelEndMessage(this, result));
                     Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.LevelOver));
                     break;

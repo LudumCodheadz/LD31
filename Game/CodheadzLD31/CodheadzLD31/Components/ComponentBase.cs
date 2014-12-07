@@ -37,6 +37,7 @@ namespace CodheadzLD31.Components
             largeFont = Game.Content.Load<SpriteFont>("Fonts\\Large");
         }
 
+        public Color FontColor { get { return Color.OrangeRed; } }
         public GameStateManager GameStateManager { get; private set; }
     }
 }

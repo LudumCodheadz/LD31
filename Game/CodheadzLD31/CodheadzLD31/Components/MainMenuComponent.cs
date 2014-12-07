@@ -15,6 +15,7 @@ namespace CodheadzLD31.Components
 
         public MainMenuComponent(LDGame game):base(game)
         {
+            this.DrawOrder = 200;
             inputToken = Messages.Messenger.Default.Subscribe<Messages.InputChangeStateMessage>(OnInput);
         }
 
@@ -57,7 +58,7 @@ namespace CodheadzLD31.Components
         {
             base.Draw(gameTime);
             spriteBatch.BeginPixel();
-            spriteBatch.DrawString(largeFont, playText, playPosition, Color.DarkBlue);
+            spriteBatch.DrawString(largeFont, playText, playPosition, FontColor);
             spriteBatch.End();
         }
 

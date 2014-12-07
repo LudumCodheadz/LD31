@@ -66,7 +66,7 @@ namespace CodheadzLD31.Components
             base.Draw(gameTime);
 
             spriteBatch.BeginPixel();
-            spriteBatch.DrawString(largeFont, gameOverText, gameOverTextPosition, Color.Yellow);
+            spriteBatch.DrawString(largeFont, gameOverText, gameOverTextPosition, FontColor);
             spriteBatch.End();
         }
 
