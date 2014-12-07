@@ -8,6 +8,7 @@ namespace CodheadzLD31.Components
     {
         private ScreenNode worldRoot;
         private SpriteScreenNode toiletNode;
+        private ScreenNode groundNodes;
 
         public LevelComponent(LDGame game):base(game)
         {
@@ -19,7 +20,7 @@ namespace CodheadzLD31.Components
             base.LoadContent();
 
             worldRoot = new ScreenNode(this.Game);
-            var groundNodes = new ScreenNode(this.Game);
+            groundNodes = new ScreenNode(this.Game);
             int y = Game.GraphicsDevice.PresentationParameters.BackBufferHeight - (20 * 2);
             groundNodes.Offset = new Vector2(0, y);
             worldRoot.AddChild(groundNodes);
@@ -53,5 +54,6 @@ namespace CodheadzLD31.Components
             spriteBatch.End();
         }
 
+        public ScreenNode GroundNode { get { return groundNodes; } }
     }
 }

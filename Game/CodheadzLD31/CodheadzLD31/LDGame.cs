@@ -49,15 +49,17 @@ namespace CodheadzLD31
             var mainMenu = new MainMenuComponent(this);
             this.Components.Add(mainMenu);
 
-            var player = new PlayerComponent(this);
-            this.Components.Add(player);
-
             var level = new LevelComponent(this);
             this.Components.Add(level);
+            this.Services.AddService(level);
 
             var levelManager = new LevelManagerComponent(this);
             this.Components.Add(levelManager);
             this.Services.AddService(levelManager);
+
+            var player = new PlayerComponent(this);
+            this.Components.Add(player);
+            
             base.Initialize();
             
         }

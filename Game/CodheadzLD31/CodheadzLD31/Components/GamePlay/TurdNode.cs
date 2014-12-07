@@ -10,12 +10,15 @@ namespace CodheadzLD31.Components.GamePlay
     public class TurdNode:ScreenNode
     {
         private const float stopRate = 0.0f;
-        private const float droppingRate = 0.3f;
-        private const float chuteRate = 0.075f;
+        private const float droppingRate = 0.00075f;
+        private const float chuteRate = 0.00075f;
         private float gravityRate = 0.0f;
         private SpriteScreenNode turdBody;
         private SpriteScreenNode chute;
         private Vector2 chuteCutDriftRate;
+        private float velocity = 0f;
+        private bool chuteInUse;
+
 
         public TurdNode(Game game)
             : base(game)
@@ -56,7 +59,17 @@ namespace CodheadzLD31.Components.GamePlay
             if (!IsEnabled) return;
 
             float x = this.Offset.X;
-            float y = this.Offset.Y + gameTime.ElapsedGameTime.Milliseconds * gravityRate;
+            
+            velocity += gameTime.ElapsedGameTime.Milliseconds * gravityRate;
+            if(chuteInUse)
+            {
+                if (velocity > 0.05)
+                    velocity -= gameTime.ElapsedGameTime.Milliseconds * 0.002f;
+            }
+            else if (velocity > 0.75) 
+                velocity = 0.75f;
+
+            float y = this.Offset.Y + gameTime.ElapsedGameTime.Milliseconds * velocity;
             this.Offset = new Vector2(x, y);
 
             this.chute.Offset += chuteCutDriftRate * gameTime.ElapsedGameTime.Milliseconds;
@@ -72,10 +85,12 @@ namespace CodheadzLD31.Components.GamePlay
             this.Offset = new Vector2(this.ExhaustPort.X, 0);
             chuteCutDriftRate = Vector2.Zero;
             gravityRate = droppingRate;
+            chuteInUse = false;
         }
 
         internal void OpenChute()
         {
+            chuteInUse = true;
             chute.IsVisible = true;
             chuteCutDriftRate = Vector2.Zero;
             gravityRate = chuteRate;
@@ -84,16 +99,18 @@ namespace CodheadzLD31.Components.GamePlay
         internal void CutChute()
         {
             gravityRate = droppingRate;
-
+            chuteInUse = false;
             float x = 0.2f;
             if(chute.Sprite.Position.X < Game.GraphicsDevice.PresentationParameters.BackBufferWidth/2 )
             {
                 x = x * -1f;
             }
 
-            chuteCutDriftRate = new Vector2(x, -0.2f);
+            chuteCutDriftRate = new Vector2(x, -0.02f);
         }
 
         public Vector2 ExhaustPort { get; set; }
+        public SpriteScreenNode Body { get { return turdBody; } }
+        public float Velocity { get { return velocity; } }
     }
 }

@@ -3,6 +3,8 @@ using CodheadzLD31.Input;
 using CodheadzLD31.Utils;
 using CodheadzLD31.GameStates;
 using Microsoft.Xna.Framework;
+using CodheadzLD31.Graphics.SceneGraph;
+using CodheadzLD31.Messages;
 
 namespace CodheadzLD31.Components
 {
@@ -11,13 +13,16 @@ namespace CodheadzLD31.Components
         private TurdNode turdNode;
         private BottomNode bottomRoot;
         private PlayerState state;
+        private LevelComponent levelComponent;
+        private bool pressInProgress;
 
         private TinyMessenger.TinyMessageSubscriptionToken levelStartToken;
         private TinyMessenger.TinyMessageSubscriptionToken inputToken;
-        private bool pressInProgress;
         
         public PlayerComponent(LDGame game):base(game)
         {
+            levelComponent = Game.Services.GetService<LevelComponent>();
+
             levelStartToken = Messages.Messenger.Default.Subscribe<Messages.LevelStartMessage>(OnLevelStart);
             inputToken = Messages.Messenger.Default.Subscribe<Messages.InputChangeStateMessage>(OnInputChange);
         }
@@ -73,6 +78,16 @@ namespace CodheadzLD31.Components
             turdNode.ExhaustPort = bottomRoot.ExhaustPort;
             turdNode.Update(gameTime);
             bottomRoot.Update(gameTime);
+
+            for (int i = 0; i < levelComponent.GroundNode.Children.Count; i++)
+            {
+                var node = levelComponent.GroundNode.Children[i] as SpriteScreenNode;
+                if(turdNode.Body.Sprite.Rectangle.Intersects(node.Sprite.Rectangle))
+                {
+                    Messages.Messenger.Default.Publish(new PlayerReachedGroundMessage(this, turdNode.Velocity));
+                }
+            }
+           
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
@@ -84,6 +99,7 @@ namespace CodheadzLD31.Components
             spriteBatch.DrawString(largeFont, state.ToString(), new Vector2(50, 300), Color.Red);
             spriteBatch.End();
         }
-        
+
+
     }
 }
