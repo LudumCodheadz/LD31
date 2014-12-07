@@ -14,19 +14,23 @@ namespace CodheadzLD31.Components.GamePlay
         private const float chuteRate = 0.00075f;
         private float gravityRate = 0.0f;
         private SpriteScreenNode turdBody;
-        private SpriteScreenNode chute;
+        private SpriteScreenNode turdChute;
         private Vector2 chuteCutDriftRate;
         private float velocity = 0f;
         private ChuteState chuteState;
+        private EnvironmentComponent environment;
 
         public TurdNode(Game game)
             : base(game)
         {
+
+            environment = Game.Services.GetService<EnvironmentComponent>();
+
             new ScreenNode(this.Game);
 
-            chute = new SpriteScreenNode(Game, "Sprites\\Chute");
-            chute.Scale = 1f;
-            this.AddChild(chute);
+            turdChute = new SpriteScreenNode(Game, "Sprites\\Chute");
+            turdChute.Scale = 1f;
+            this.AddChild(turdChute);
 
             turdBody = new SpriteScreenNode(Game, "Sprites\\Turd");
             turdBody.Scale = 1f;
@@ -42,8 +46,8 @@ namespace CodheadzLD31.Components.GamePlay
         public void ResetPlayerPosition()
         {
             turdBody.Offset = new Vector2(0, 0);
-            chute.Offset = new Vector2(-(chute.Sprite.Rectangle.Width - turdBody.Sprite.Rectangle.Width) / 2, -35);
-            chute.IsVisible = false;
+            turdChute.Offset = new Vector2(-(turdChute.Sprite.Rectangle.Width - turdBody.Sprite.Rectangle.Width) / 2, -35);
+            turdChute.IsVisible = false;
             chuteState = ChuteState.Unopened;
 
             this.IsEnabled = false;
@@ -61,6 +65,7 @@ namespace CodheadzLD31.Components.GamePlay
             if (!IsEnabled) return;
 
             float chuteVelocity = 0f;
+            float windDrift = environment.WindSpeed * gameTime.ElapsedGameTime.Milliseconds;
 
             velocity += gameTime.ElapsedGameTime.Milliseconds * gravityRate;
 
@@ -69,7 +74,8 @@ namespace CodheadzLD31.Components.GamePlay
 
             if (chuteState == ChuteState.Cut)
             {
-                chute.Offset += chuteCutDriftRate;
+                turdChute.Offset += chuteCutDriftRate;
+                turdChute.Offset += new Vector2(windDrift, 0);
             }
             else
             {
@@ -77,11 +83,15 @@ namespace CodheadzLD31.Components.GamePlay
                     velocity -= gameTime.ElapsedGameTime.Milliseconds * 0.002f;
 
                 chuteVelocity = velocity;
-                chute.Offset += new Vector2(0, chuteVelocity * gameTime.ElapsedGameTime.Milliseconds);
+                turdChute.Offset += new Vector2(0, chuteVelocity * gameTime.ElapsedGameTime.Milliseconds);
             }
-
             turdBody.Offset += new Vector2(0, gameTime.ElapsedGameTime.Milliseconds * velocity);
             
+            if(chuteState == ChuteState.Opened)
+            {
+                turdBody.Offset += new Vector2(windDrift, 0);
+                turdChute.Offset += new Vector2(windDrift, 0);
+            }
         }
 
         public void StartDropping()
@@ -94,7 +104,7 @@ namespace CodheadzLD31.Components.GamePlay
         public void OpenChute()
         {
             chuteState = ChuteState.Opened;
-            chute.IsVisible = true;
+            turdChute.IsVisible = true;
             chuteCutDriftRate = Vector2.Zero;
             gravityRate = chuteRate;
         }
@@ -108,7 +118,7 @@ namespace CodheadzLD31.Components.GamePlay
             gravityRate = droppingRate;
 
             float x = 0.5f;
-            if (chute.Sprite.Position.X < Game.GraphicsDevice.PresentationParameters.BackBufferWidth / 2)
+            if (turdChute.Sprite.Position.X < Game.GraphicsDevice.PresentationParameters.BackBufferWidth / 2)
             {
                 x = x * -1f;
             }

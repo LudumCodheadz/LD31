@@ -67,6 +67,6 @@ namespace CodheadzLD31.Components
             spriteBatch.End();
         }
 
-
+        public float WindSpeed { get { return windSpeed; } }
     }
 }
