@@ -8,7 +8,7 @@ using CodheadzLD31.Messages;
 
 namespace CodheadzLD31.Components
 {
-    public class PlayerComponent: ComponentBase
+    public class PlayerComponent : ComponentBase
     {
         private TurdNode turdNode;
         private BottomNode bottomRoot;
@@ -18,8 +18,9 @@ namespace CodheadzLD31.Components
 
         private TinyMessenger.TinyMessageSubscriptionToken levelStartToken;
         private TinyMessenger.TinyMessageSubscriptionToken inputToken;
-        
-        public PlayerComponent(LDGame game):base(game)
+
+        public PlayerComponent(LDGame game)
+            : base(game)
         {
             levelComponent = Game.Services.GetService<LevelComponent>();
 
@@ -29,7 +30,7 @@ namespace CodheadzLD31.Components
 
         private void OnInputChange(Messages.InputChangeStateMessage obj)
         {
-            if(GameStateManager.CurrentState == GameStates.GameStates.Playing)
+            if (GameStateManager.CurrentState == GameStates.GameStates.Playing)
             {
                 if (!obj.Content.IsReleased() && !pressInProgress)
                 {
@@ -71,7 +72,7 @@ namespace CodheadzLD31.Components
             bottomRoot = new BottomNode(this.Game);
             turdNode = new TurdNode(this.Game);
         }
-        
+
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Update(gameTime);
@@ -79,15 +80,34 @@ namespace CodheadzLD31.Components
             turdNode.Update(gameTime);
             bottomRoot.Update(gameTime);
 
+            if (state == PlayerState.ChuteOpen || state == PlayerState.ChuteCut || state == PlayerState.Dropping)
+                CheckTurdForFloorHit();
+
+        }
+
+        private void CheckTurdForFloorHit()
+        {
             for (int i = 0; i < levelComponent.GroundNode.Children.Count; i++)
             {
                 var node = levelComponent.GroundNode.Children[i] as SpriteScreenNode;
-                if(turdNode.Body.Sprite.Rectangle.Intersects(node.Sprite.Rectangle))
+                if (turdNode.Body.Sprite.Rectangle.Bottom > node.Sprite.Rectangle.Top)
                 {
+                    if (turdNode.Velocity < 0.5f)
+                    {
+                        state = PlayerState.Down;
+                        turdNode.Down();
+                        break;
+                    }
+                    else
+                    {
+                        state = PlayerState.Dead;
+                        turdNode.Dead();
+                        break;
+                    }
                     Messages.Messenger.Default.Publish(new PlayerReachedGroundMessage(this, turdNode.Velocity));
+
                 }
             }
-           
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)

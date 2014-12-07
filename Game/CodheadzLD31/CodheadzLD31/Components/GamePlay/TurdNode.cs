@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CodheadzLD31.Components.GamePlay
 {
-    public class TurdNode:ScreenNode
+    public class TurdNode : ScreenNode
     {
         private const float stopRate = 0.0f;
         private const float droppingRate = 0.00075f;
@@ -17,7 +17,7 @@ namespace CodheadzLD31.Components.GamePlay
         private SpriteScreenNode chute;
         private Vector2 chuteCutDriftRate;
         private float velocity = 0f;
-        private bool chuteInUse;
+        private ChuteState chuteState;
 
 
         public TurdNode(Game game)
@@ -33,15 +33,15 @@ namespace CodheadzLD31.Components.GamePlay
             chute.Scale = 1f;
             this.AddChild(chute);
 
-            
+
             this.Scale = 1.5f;
 
             this.Update(new GameTime());
-            
+
             ResetPlayerPosition();
         }
 
-        public  void ResetPlayerPosition()
+        public void ResetPlayerPosition()
         {
             int x = (Game.GraphicsDevice.PresentationParameters.BackBufferWidth - turdBody.Sprite.Rectangle.Width) / 2;
             this.Offset = new Vector2(x, 0);
@@ -55,24 +55,31 @@ namespace CodheadzLD31.Components.GamePlay
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
+
             if (!IsEnabled) return;
 
-            float x = this.Offset.X;
-            
+            float chuteVelocity = 0f;
+
             velocity += gameTime.ElapsedGameTime.Milliseconds * gravityRate;
-            if(chuteInUse)
+
+            if (velocity > 0.95)
+                velocity = 0.95f;
+
+            if (chuteState == ChuteState.Cut)
             {
-                if (velocity > 0.05)
-                    velocity -= gameTime.ElapsedGameTime.Milliseconds * 0.002f;
+                chute.Offset += chuteCutDriftRate;
             }
-            else if (velocity > 0.75) 
-                velocity = 0.75f;
+            else
+            {
+                if (chuteState == ChuteState.Opened && velocity > 0.05)
+                    velocity -= gameTime.ElapsedGameTime.Milliseconds * 0.002f;
 
-            float y = this.Offset.Y + gameTime.ElapsedGameTime.Milliseconds * velocity;
-            this.Offset = new Vector2(x, y);
+                chuteVelocity = velocity;
+                chute.Offset += new Vector2(0, chuteVelocity * gameTime.ElapsedGameTime.Milliseconds);
+            }
 
-            this.chute.Offset += chuteCutDriftRate * gameTime.ElapsedGameTime.Milliseconds;
+            turdBody.Offset += new Vector2(0, gameTime.ElapsedGameTime.Milliseconds * velocity);
+
         }
 
         public void Launch(Vector2 position)
@@ -85,12 +92,12 @@ namespace CodheadzLD31.Components.GamePlay
             this.Offset = new Vector2(this.ExhaustPort.X, 0);
             chuteCutDriftRate = Vector2.Zero;
             gravityRate = droppingRate;
-            chuteInUse = false;
+            chuteState = ChuteState.Unopened;
         }
 
         internal void OpenChute()
         {
-            chuteInUse = true;
+            chuteState = ChuteState.Opened;
             chute.IsVisible = true;
             chuteCutDriftRate = Vector2.Zero;
             gravityRate = chuteRate;
@@ -98,19 +105,40 @@ namespace CodheadzLD31.Components.GamePlay
 
         internal void CutChute()
         {
+            if (chuteState != ChuteState.Opened) return;
+
+            chuteState = ChuteState.Cut;
+
             gravityRate = droppingRate;
-            chuteInUse = false;
-            float x = 0.2f;
-            if(chute.Sprite.Position.X < Game.GraphicsDevice.PresentationParameters.BackBufferWidth/2 )
+
+            float x = 0.5f;
+            if (chute.Sprite.Position.X < Game.GraphicsDevice.PresentationParameters.BackBufferWidth / 2)
             {
                 x = x * -1f;
             }
 
-            chuteCutDriftRate = new Vector2(x, -0.02f);
+            chuteCutDriftRate = new Vector2(x, 0.7f);
         }
 
         public Vector2 ExhaustPort { get; set; }
         public SpriteScreenNode Body { get { return turdBody; } }
         public float Velocity { get { return velocity; } }
+
+        internal void Down()
+        {
+            CutChute();
+
+            gravityRate = 0f;
+            velocity = 0f;
+
+        }
+
+        internal void Dead()
+        {
+            CutChute();
+
+            gravityRate = 0f;
+            velocity = 0f;
+        }
     }
 }
