@@ -59,6 +59,9 @@ namespace CodheadzLD31
 
             var player = new PlayerComponent(this);
             this.Components.Add(player);
+
+            var levelEnd = new LevelOverSummaryComponent(this);
+            this.Components.Add(levelEnd);
             
             base.Initialize();
             

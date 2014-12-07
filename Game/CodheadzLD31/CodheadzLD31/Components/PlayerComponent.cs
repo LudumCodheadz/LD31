@@ -78,9 +78,11 @@ namespace CodheadzLD31.Components
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Update(gameTime);
-            turdNode.ExhaustPort = bottomRoot.ExhaustPort;
-            turdNode.Update(gameTime);
             bottomRoot.Update(gameTime);
+            
+            turdNode.ExhaustPort = bottomRoot.ExhaustPort;
+            turdNode.PlayerState = state;
+            turdNode.Update(gameTime);
 
             if (state == PlayerState.ChuteOpen || state == PlayerState.ChuteCut || state == PlayerState.Dropping)
                 CheckTurdForFloorHit();

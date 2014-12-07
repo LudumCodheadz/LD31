@@ -41,11 +41,10 @@ namespace CodheadzLD31.Components.GamePlay
 
         public void ResetPlayerPosition()
         {
-            int x = (Game.GraphicsDevice.PresentationParameters.BackBufferWidth - turdBody.Sprite.Rectangle.Width) / 2;
-            this.Offset = new Vector2(x, 0);
-
+            turdBody.Offset = new Vector2(0, 0);
             chute.Offset = new Vector2(-(chute.Sprite.Rectangle.Width - turdBody.Sprite.Rectangle.Width) / 2, -35);
             chute.IsVisible = false;
+            chuteState = ChuteState.Unopened;
 
             this.IsEnabled = false;
         }
@@ -53,6 +52,11 @@ namespace CodheadzLD31.Components.GamePlay
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (PlayerState == Components.PlayerState.Turtle)
+            {
+                this.Offset = this.ExhaustPort - new Vector2(turdBody.Sprite.Rectangle.Width / 2, 0);
+            }
 
             if (!IsEnabled) return;
 
@@ -77,22 +81,17 @@ namespace CodheadzLD31.Components.GamePlay
             }
 
             turdBody.Offset += new Vector2(0, gameTime.ElapsedGameTime.Milliseconds * velocity);
+            
         }
 
-        public void Launch(Vector2 position)
+        public void StartDropping()
         {
-            this.IsEnabled = true;
-        }
-
-        internal void StartDropping()
-        {
-            this.Offset = new Vector2(this.ExhaustPort.X, 0);
             chuteCutDriftRate = Vector2.Zero;
             gravityRate = droppingRate;
             chuteState = ChuteState.Unopened;
         }
 
-        internal void OpenChute()
+        public void OpenChute()
         {
             chuteState = ChuteState.Opened;
             chute.IsVisible = true;
@@ -117,6 +116,7 @@ namespace CodheadzLD31.Components.GamePlay
             chuteCutDriftRate = new Vector2(x, 0.7f);
         }
 
+        public PlayerState PlayerState {get;set;}
         public Vector2 ExhaustPort { get; set; }
         public SpriteScreenNode Body { get { return turdBody; } }
         public float Velocity { get { return velocity; } }
@@ -149,7 +149,5 @@ namespace CodheadzLD31.Components.GamePlay
                 return this.turdBody.Sprite.Rectangle.Center;
             }
         }
-
-
     }
 }

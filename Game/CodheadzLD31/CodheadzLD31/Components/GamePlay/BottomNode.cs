@@ -40,9 +40,7 @@ namespace CodheadzLD31.Components.GamePlay
         {
             get
             {
-                int y = 0;
-                int x = (int)( bottomSprite.Sprite.Position.X +  (bottomSprite.Sprite.Rectangle.Width / 2));
-                return new Vector2(x, y);
+                return bottomSprite.Sprite.Rectangle.Center.ToVector2();
             }
         }
     }

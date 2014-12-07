@@ -21,6 +21,11 @@ namespace CodheadzLD31.Components
             }
         }
 
+        public void NextLevel()
+        {
+            SetLevel(CurrentLevel + 1);
+        }
+
         private void SetLevel(int nextLevel)
         {
             this.CurrentLevel = nextLevel;
