@@ -1,4 +1,5 @@
 ﻿using CodheadzLD31.Graphics.SceneGraph;
+using CodheadzLD31.Utils;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -29,11 +30,9 @@ namespace CodheadzLD31.Components.GamePlay
             new ScreenNode(this.Game);
 
             turdChute = new SpriteScreenNode(Game, "Sprites\\Chute");
-            turdChute.Scale = 1f;
             this.AddChild(turdChute);
 
             turdBody = new SpriteScreenNode(Game, "Sprites\\Turd");
-            turdBody.Scale = 1f;
             this.AddChild(turdBody);
 
             this.Scale = 1.5f;
@@ -46,11 +45,16 @@ namespace CodheadzLD31.Components.GamePlay
         public void ResetPlayerPosition()
         {
             turdBody.Offset = new Vector2(0, 0);
-            turdChute.Offset = new Vector2(-(turdChute.Sprite.Rectangle.Width - turdBody.Sprite.Rectangle.Width) / 2, -35);
+            SetChutOffset();
             turdChute.IsVisible = false;
             chuteState = ChuteState.Unopened;
 
             this.IsEnabled = false;
+        }
+
+        private void SetChutOffset()
+        {
+            turdChute.Offset = new Vector2(turdBody.Sprite.Rectangle.Center.X - turdChute.Sprite.Rectangle.Width /2,turdBody.Offset.Y - turdChute.Sprite.Rectangle.Height );
         }
 
         public override void Update(GameTime gameTime)
@@ -59,7 +63,8 @@ namespace CodheadzLD31.Components.GamePlay
 
             if (PlayerState == Components.PlayerState.Turtle)
             {
-                this.Offset = this.ExhaustPort - new Vector2(turdBody.Sprite.Rectangle.Width / 2, 0);
+                turdBody.Offset = this.ExhaustPort - new Vector2(turdBody.Sprite.Rectangle.Width / 2, 0);
+                SetChutOffset();
             }
 
             if (!IsEnabled) return;
@@ -85,6 +90,9 @@ namespace CodheadzLD31.Components.GamePlay
                 chuteVelocity = velocity;
                 turdChute.Offset += new Vector2(0, chuteVelocity * gameTime.ElapsedGameTime.Milliseconds);
             }
+
+            if(this.PlayerState != Components.PlayerState.Dead
+                && this.PlayerState != Components.PlayerState.Down)
             turdBody.Offset += new Vector2(0, gameTime.ElapsedGameTime.Milliseconds * velocity);
             
             if(chuteState == ChuteState.Opened)
@@ -148,7 +156,7 @@ namespace CodheadzLD31.Components.GamePlay
 
             gravityRate = 0f;
             velocity = 0f;
-            int y = groundY - 20 ;
+            int y = groundY - turdBody.Sprite.Rectangle.Height;
             turdBody.Offset = new Vector2(turdBody.Offset.X, y);
         }
 
@@ -159,5 +167,6 @@ namespace CodheadzLD31.Components.GamePlay
                 return this.turdBody.Sprite.Rectangle.Center;
             }
         }
+
     }
 }

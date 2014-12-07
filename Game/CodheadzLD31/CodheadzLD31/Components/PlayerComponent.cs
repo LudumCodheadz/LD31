@@ -1,4 +1,5 @@
 ﻿using CodheadzLD31.Components.GamePlay;
+using CodheadzLD31.Utils.Timers;
 using CodheadzLD31.Input;
 using CodheadzLD31.Utils;
 using CodheadzLD31.GameStates;
@@ -21,6 +22,10 @@ namespace CodheadzLD31.Components
         private TinyMessenger.TinyMessageSubscriptionToken levelStartToken;
         private TinyMessenger.TinyMessageSubscriptionToken inputToken;
 
+        private Timer timer;
+        private bool allowPress;
+
+
         public PlayerComponent(LDGame game)
             : base(game)
         {
@@ -29,17 +34,26 @@ namespace CodheadzLD31.Components
             levelManagerComponent = Game.Services.GetService<LevelManagerComponent>();
             levelStartToken = Messages.Messenger.Default.Subscribe<Messages.LevelStartMessage>(OnLevelStart);
             inputToken = Messages.Messenger.Default.Subscribe<Messages.InputChangeStateMessage>(OnInputChange);
+
+            timer = new Timer(new System.TimeSpan(0, 0, 1), TimerMode.Single);
+            timer.TimeReached += timer_TimeReached;
+        }
+
+        void timer_TimeReached(object sender, System.EventArgs e)
+        {
+            allowPress = true;
         }
 
         private void OnInputChange(Messages.InputChangeStateMessage obj)
         {
             if (GameStateManager.CurrentState == GameStates.GameStates.Playing)
             {
-                if (!obj.Content.IsReleased() && !pressInProgress)
+                if (!obj.Content.IsReleased() && !pressInProgress && allowPress)
                 {
                     switch (state)
                     {
                         case PlayerState.Turtle:
+                            turdNode.ExhaustPort = this.bottomRoot.ExhaustPort;
                             turdNode.IsEnabled = true;
                             turdNode.StartDropping();
                             state = PlayerState.Dropping;
@@ -64,6 +78,8 @@ namespace CodheadzLD31.Components
 
         private void OnLevelStart(Messages.LevelStartMessage obj)
         {
+            allowPress = false;
+            timer.Start();
             turdNode.ResetPlayerPosition();
             state = PlayerState.Turtle;
         }
@@ -88,7 +104,8 @@ namespace CodheadzLD31.Components
 
             if (state == PlayerState.ChuteOpen || state == PlayerState.ChuteCut || state == PlayerState.Dropping)
                 CheckTurdForFloorHit();
-
+            
+            timer.Update(gameTime);
         }
 
         private void CheckTurdForFloorHit()
