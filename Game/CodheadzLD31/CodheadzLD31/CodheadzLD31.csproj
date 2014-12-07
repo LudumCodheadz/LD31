@@ -48,6 +48,7 @@
     <Compile Include="Components\InputTestComponent.cs" />
     <Compile Include="Components\LevelComponent.cs" />
     <Compile Include="Components\LevelManagerComponent.cs" />
+    <Compile Include="Components\GameOverComponent.cs" />
     <Compile Include="Components\LevelOverSummaryComponent.cs" />
     <Compile Include="Components\MainMenuComponent.cs" />
     <Compile Include="Components\PlayerComponent.cs" />

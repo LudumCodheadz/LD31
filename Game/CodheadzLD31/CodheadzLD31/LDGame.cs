@@ -43,8 +43,8 @@ namespace CodheadzLD31
             this.Components.Add(inputManager);
             this.Services.AddService(inputManager);
 
-            var inputTest = new InputTestComponent(this);
-            this.Components.Add(inputTest);
+            //var inputTest = new InputTestComponent(this);
+            //this.Components.Add(inputTest);
 
             var mainMenu = new MainMenuComponent(this);
             this.Components.Add(mainMenu);
@@ -71,7 +71,12 @@ namespace CodheadzLD31
             this.Components.Add(playerHud);
             this.Services.AddService(playerHud);
 
+            var gameOver = new GameOverComponent(this);
+            this.Components.Add(gameOver);
+
             base.Initialize();
+
+            Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.MainMenu));
             
         }
 

@@ -46,10 +46,22 @@ namespace CodheadzLD31.Components
             {
                 if (allowNextState)
                 {
-                    var levelManager = Game.Services.GetService<LevelManagerComponent>();
-                    levelManager.NextLevel();
-                    Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.Playing));
+
+                    var playerHud = Game.Services.GetService<PlayerHudComponent>();
+                    if (playerHud.Lives == 0)
+                    {
+                        Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.GameOver));
+                    }
+                    else 
+                    {
+                        var levelManager = Game.Services.GetService<LevelManagerComponent>();
+                        levelManager.NextLevel();
+                        Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.Playing));
+                    }
                 }
+
+                
+
             }
         }
 
@@ -70,7 +82,7 @@ namespace CodheadzLD31.Components
             jumpScore = string.Format("Jump Score:   {0}", obj.Content.JumpScore);
             totalScore = string.Format("Total Score: {0}", obj.Content.TotalScore);
 
-            summaryTextPosition = new Vector2(100, 100);
+            summaryTextPosition = new Vector2(100, 200);
             jumpScorePosition = summaryTextPosition + new Vector2(0, largeFont.LineSpacing + 10);
             totalScorePosition = jumpScorePosition + new Vector2(0, largeFont.LineSpacing + 10);
         }
@@ -89,6 +101,11 @@ namespace CodheadzLD31.Components
                 this.Visible = true;
                 allowNextState = false;
                 displayHoldTimer.Start();
+            }
+            else if (obj.Content == GameStates.GameStates.GameOver)
+            {
+                this.Enabled = true;
+                this.Visible = true;
             }
             else
             {

@@ -30,10 +30,6 @@ namespace CodheadzLD31.Components
         private void ReduceLives()
         {
             Lives--;
-            if(Lives == 0)
-            {
-                Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.GameOver));
-            }
         }
 
         public int Lives { get; private set; }
