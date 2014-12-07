@@ -35,7 +35,10 @@ namespace CodheadzLD31.Components
         {
             if (GameStateManager.CurrentState == GameStates.GameStates.MainMenu)
             {
-                var levelManager = Game.Services.GetService< LevelManagerComponent>();
+                //TODO: should decomplese these and fire a message
+                var levelManager = Game.Services.GetService<LevelManagerComponent>();
+                var playerHud = Game.Services.GetService<PlayerHudComponent>();
+                playerHud.ResetLives();
                 levelManager.SetLevel(1);
                 Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.Playing));
             }

@@ -1,4 +1,5 @@
-﻿using CodheadzLD31.Graphics.SceneGraph;
+﻿using CodheadzLD31.Components.GamePlay;
+using CodheadzLD31.Graphics.SceneGraph;
 using CodheadzLD31.Utils;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,30 @@ namespace CodheadzLD31.Components
 {
     public class PlayerHudComponent:ComponentBase
     {
-        ScreenNode hudBackground;
+        private ScreenNode hudBackground;
+        private PlayerLivesNode playerLivesNode;
+        private TinyMessenger.TinyMessageSubscriptionToken onLevelEndToken;
 
         public PlayerHudComponent(LDGame game):base(game)
         {
+            onLevelEndToken = Messages.Messenger.Default.Subscribe<Messages.LevelEndMessage>(OnLevelEnd);
+        }
 
+        private void OnLevelEnd(Messages.LevelEndMessage obj)
+        {
+            if(obj.Content.Dead)
+            {
+                ReduceLives();
+            }
+        }
+
+        private void ReduceLives()
+        {
+            Lives--;
+            if(Lives == 0)
+            {
+                Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.GameOver));
+            }
         }
 
         public int Lives { get; private set; }
@@ -37,12 +57,17 @@ namespace CodheadzLD31.Components
                 this.hudBackground.AddChild(topCloud);
             }
 
+            playerLivesNode = new PlayerLivesNode(this.Game);
+            playerLivesNode.Offset = new Microsoft.Xna.Framework.Vector2(3, 3);
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Update(gameTime);
+            playerLivesNode.Lives = this.Lives;
+            playerLivesNode.Update(gameTime);
             hudBackground.Update(gameTime);
+            
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
@@ -50,6 +75,7 @@ namespace CodheadzLD31.Components
             base.Draw(gameTime);
             spriteBatch.BeginPixel();
             hudBackground.Draw(gameTime, spriteBatch);
+            playerLivesNode.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
     }

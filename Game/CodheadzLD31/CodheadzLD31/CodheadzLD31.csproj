@@ -41,6 +41,7 @@
     <Compile Include="Components\EnvironmentComponent.cs" />
     <Compile Include="Components\GamePlay\ChuteState.cs" />
     <Compile Include="Components\GamePlay\LevelResult.cs" />
+    <Compile Include="Components\GamePlay\PlayerLivesNode.cs" />
     <Compile Include="Components\GamePlay\ToiletNode.cs" />
     <Compile Include="Components\GamePlay\TurdNode.cs" />
     <Compile Include="Components\GamePlay\BottomNode.cs" />
