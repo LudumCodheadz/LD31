@@ -9,6 +9,7 @@ namespace CodheadzLD31.GameStates
     {
         MainMenu,
         Playing,
-        GameOver
+        GameOver,
+        LevelOver
     }
 }

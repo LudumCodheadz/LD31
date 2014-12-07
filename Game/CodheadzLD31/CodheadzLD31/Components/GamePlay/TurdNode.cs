@@ -19,20 +19,18 @@ namespace CodheadzLD31.Components.GamePlay
         private float velocity = 0f;
         private ChuteState chuteState;
 
-
         public TurdNode(Game game)
             : base(game)
         {
             new ScreenNode(this.Game);
 
-            turdBody = new SpriteScreenNode(Game, "Sprites\\Turd");
-            turdBody.Scale = 1f;
-            this.AddChild(turdBody);
-
             chute = new SpriteScreenNode(Game, "Sprites\\Chute");
             chute.Scale = 1f;
             this.AddChild(chute);
 
+            turdBody = new SpriteScreenNode(Game, "Sprites\\Turd");
+            turdBody.Scale = 1f;
+            this.AddChild(turdBody);
 
             this.Scale = 1.5f;
 
@@ -79,7 +77,6 @@ namespace CodheadzLD31.Components.GamePlay
             }
 
             turdBody.Offset += new Vector2(0, gameTime.ElapsedGameTime.Milliseconds * velocity);
-
         }
 
         public void Launch(Vector2 position)
@@ -124,7 +121,7 @@ namespace CodheadzLD31.Components.GamePlay
         public SpriteScreenNode Body { get { return turdBody; } }
         public float Velocity { get { return velocity; } }
 
-        internal void Down(int groundY)
+        public void Down(int groundY)
         {
             CutChute();
 
@@ -135,15 +132,24 @@ namespace CodheadzLD31.Components.GamePlay
 
         }
 
-        internal void Dead(int groundY)
+        public void Dead(int groundY)
         {
             CutChute();
 
             gravityRate = 0f;
             velocity = 0f;
-
             int y = groundY - 20 ;
             turdBody.Offset = new Vector2(turdBody.Offset.X, y);
         }
+
+        public Point TurdCenter
+        {
+            get
+            {
+                return this.turdBody.Sprite.Rectangle.Center;
+            }
+        }
+
+
     }
 }

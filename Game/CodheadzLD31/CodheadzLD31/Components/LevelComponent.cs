@@ -1,4 +1,5 @@
-﻿using CodheadzLD31.Graphics.SceneGraph;
+﻿using CodheadzLD31.Components.GamePlay;
+using CodheadzLD31.Graphics.SceneGraph;
 using CodheadzLD31.Utils;
 using Microsoft.Xna.Framework;
 
@@ -7,7 +8,7 @@ namespace CodheadzLD31.Components
     public class LevelComponent:ComponentBase
     {
         private ScreenNode worldRoot;
-        private SpriteScreenNode toiletNode;
+        private ToiletNode toiletNode;
         private ScreenNode groundNodes;
 
         public LevelComponent(LDGame game):base(game)
@@ -33,10 +34,10 @@ namespace CodheadzLD31.Components
                 groundNodes.AddChild(floor);
             }
 
-            toiletNode = new SpriteScreenNode(this.Game, "sprites/Toilet");
-            toiletNode.Scale = 2;
+            toiletNode = new ToiletNode(this.Game);
             y = (this.GraphicsDevice.PresentationParameters.BackBufferWidth - (28 * 2)) / 2;
             toiletNode.Offset = new Vector2(y, groundNodes.Offset.Y - (46 * 2));
+
             this.worldRoot.AddChild(toiletNode);
         }
 
@@ -55,5 +56,6 @@ namespace CodheadzLD31.Components
         }
 
         public ScreenNode GroundNode { get { return groundNodes; } }
+        public ToiletNode ToiletNode { get { return toiletNode; } }
     }
 }

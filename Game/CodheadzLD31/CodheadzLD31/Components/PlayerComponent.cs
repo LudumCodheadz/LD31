@@ -13,8 +13,10 @@ namespace CodheadzLD31.Components
         private TurdNode turdNode;
         private BottomNode bottomRoot;
         private PlayerState state;
-        private LevelComponent levelComponent;
         private bool pressInProgress;
+
+        private LevelManagerComponent levelManagerComponent;
+        private LevelComponent levelComponent;
 
         private TinyMessenger.TinyMessageSubscriptionToken levelStartToken;
         private TinyMessenger.TinyMessageSubscriptionToken inputToken;
@@ -23,7 +25,7 @@ namespace CodheadzLD31.Components
             : base(game)
         {
             levelComponent = Game.Services.GetService<LevelComponent>();
-
+            levelManagerComponent = Game.Services.GetService<LevelManagerComponent>();
             levelStartToken = Messages.Messenger.Default.Subscribe<Messages.LevelStartMessage>(OnLevelStart);
             inputToken = Messages.Messenger.Default.Subscribe<Messages.InputChangeStateMessage>(OnInputChange);
         }
@@ -92,20 +94,28 @@ namespace CodheadzLD31.Components
                 var node = levelComponent.GroundNode.Children[i] as SpriteScreenNode;
                 if (turdNode.Body.Sprite.Rectangle.Bottom > node.Sprite.Rectangle.Top)
                 {
-                    if (turdNode.Velocity < 0.5f)
+                    var result = new LevelResult();
+                    result.Level = levelManagerComponent.CurrentLevel;
+                     
+                    if (turdNode.Velocity < 0.3f)
                     {
                         state = PlayerState.Down;
                         turdNode.Down(node.Sprite.Rectangle.Top);
-                        break;
+                        result.Dead = false;
                     }
                     else
                     {
                         state = PlayerState.Dead;
                         turdNode.Dead(node.Sprite.Rectangle.Top);
-                        break;
+                        result.Dead = true;
                     }
-                    Messages.Messenger.Default.Publish(new PlayerReachedGroundMessage(this, turdNode.Velocity));
 
+                    result.TurdCenter = turdNode.TurdCenter;
+                    result.ToiletCenter = levelComponent.ToiletNode.ToiletCenter;
+                    
+                    Messages.Messenger.Default.Publish(new LevelEndMessage(this, result));
+                    Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.LevelOver));
+                    break;
                 }
             }
         }
