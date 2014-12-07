@@ -117,7 +117,9 @@ namespace CodheadzLD31.Components
 
                     result.TurdCenter = turdNode.TurdCenter;
                     result.ToiletCenter = levelComponent.ToiletNode.ToiletCenter;
-                    
+                    var playerHub = Game.Services.GetService<PlayerHudComponent>();
+                    result.TotalScore = playerHub.TotalScore + result.JumpScore;
+
                     Messages.Messenger.Default.Publish(new LevelEndMessage(this, result));
                     Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.LevelOver));
                     break;

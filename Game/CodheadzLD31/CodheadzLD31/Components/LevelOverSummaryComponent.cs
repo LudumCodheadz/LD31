@@ -77,6 +77,8 @@ namespace CodheadzLD31.Components
                 this.summaryText = GetRandomString(this.aliveSummaryStrings);
 
             jumpScore = string.Format("Jump Score:   {0}", obj.Content.JumpScore);
+
+            
             totalScore = string.Format("Total Score: {0}", obj.Content.TotalScore);
 
             summaryTextPosition = new Vector2(100, 200);

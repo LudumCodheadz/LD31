@@ -13,6 +13,7 @@ namespace CodheadzLD31.Components
         private ScreenNode hudBackground;
         private PlayerLivesNode playerLivesNode;
         private TinyMessenger.TinyMessageSubscriptionToken onLevelEndToken;
+        private Microsoft.Xna.Framework.Vector2 scorePosition;
 
         public PlayerHudComponent(LDGame game):base(game)
         {
@@ -22,6 +23,7 @@ namespace CodheadzLD31.Components
 
         private void OnLevelEnd(Messages.LevelEndMessage obj)
         {
+            TotalScore += obj.Content.JumpScore;
             if(obj.Content.Dead)
             {
                 ReduceLives();
@@ -33,10 +35,13 @@ namespace CodheadzLD31.Components
             Lives--;
         }
 
+        public int TotalScore { get; private set; }
+
         public int Lives { get; private set; }
-        public void ResetLives()
+        public void StartSession()
         {
             Lives = 3;
+            TotalScore = 0;
         }
 
         protected override void LoadContent()
@@ -64,6 +69,9 @@ namespace CodheadzLD31.Components
             playerLivesNode.Lives = this.Lives;
             playerLivesNode.Update(gameTime);
             hudBackground.Update(gameTime);
+
+            int x = Game.GraphicsDevice.PresentationParameters.BackBufferWidth - (int)largeFont.MeasureString( TotalScore.ToString()).X -15;
+            scorePosition = new Microsoft.Xna.Framework.Vector2(x, 3);
             
         }
 
@@ -73,7 +81,9 @@ namespace CodheadzLD31.Components
             spriteBatch.BeginPixel();
             hudBackground.Draw(gameTime, spriteBatch);
             playerLivesNode.Draw(gameTime, spriteBatch);
+            spriteBatch.DrawStringShaddow(largeFont, TotalScore.ToString(), scorePosition, FontColor);
             spriteBatch.End();
         }
+
     }
 }

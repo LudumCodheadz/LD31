@@ -39,7 +39,7 @@ namespace CodheadzLD31.Components
                 //TODO: should decomplese these and fire a message
                 var levelManager = Game.Services.GetService<LevelManagerComponent>();
                 var playerHud = Game.Services.GetService<PlayerHudComponent>();
-                playerHud.ResetLives();
+                playerHud.StartSession();
                 levelManager.SetLevel(1);
                 Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.Playing));
             }
