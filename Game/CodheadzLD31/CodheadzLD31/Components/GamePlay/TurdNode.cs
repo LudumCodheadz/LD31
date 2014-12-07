@@ -124,21 +124,26 @@ namespace CodheadzLD31.Components.GamePlay
         public SpriteScreenNode Body { get { return turdBody; } }
         public float Velocity { get { return velocity; } }
 
-        internal void Down()
+        internal void Down(int groundY)
         {
             CutChute();
 
             gravityRate = 0f;
             velocity = 0f;
+            int y = groundY - turdBody.Sprite.Rectangle.Height;
+            turdBody.Offset = new Vector2(turdBody.Offset.X, y);
 
         }
 
-        internal void Dead()
+        internal void Dead(int groundY)
         {
             CutChute();
 
             gravityRate = 0f;
             velocity = 0f;
+
+            int y = groundY - 20 ;
+            turdBody.Offset = new Vector2(turdBody.Offset.X, y);
         }
     }
 }

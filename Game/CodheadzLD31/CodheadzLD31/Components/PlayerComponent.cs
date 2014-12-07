@@ -95,13 +95,13 @@ namespace CodheadzLD31.Components
                     if (turdNode.Velocity < 0.5f)
                     {
                         state = PlayerState.Down;
-                        turdNode.Down();
+                        turdNode.Down(node.Sprite.Rectangle.Top);
                         break;
                     }
                     else
                     {
                         state = PlayerState.Dead;
-                        turdNode.Dead();
+                        turdNode.Dead(node.Sprite.Rectangle.Top);
                         break;
                     }
                     Messages.Messenger.Default.Publish(new PlayerReachedGroundMessage(this, turdNode.Velocity));
