@@ -15,10 +15,6 @@ namespace CodheadzLD31.Components
         protected override void OnGameStateChange(Messages.GameStateChangeMessage obj)
         {
             base.OnGameStateChange(obj);
-            if(obj.Content == GameStates.GameStates.Playing)
-            {
-                SetLevel(1);
-            }
         }
 
         public void NextLevel()
@@ -26,7 +22,7 @@ namespace CodheadzLD31.Components
             SetLevel(CurrentLevel + 1);
         }
 
-        private void SetLevel(int nextLevel)
+        public  void SetLevel(int nextLevel)
         {
             this.CurrentLevel = nextLevel;
             Messages.Messenger.Default.Publish(new Messages.LevelStartMessage(this, this.CurrentLevel));

@@ -62,7 +62,11 @@ namespace CodheadzLD31
 
             var levelEnd = new LevelOverSummaryComponent(this);
             this.Components.Add(levelEnd);
-            
+
+            var env = new EnvironmentComponent(this);
+            this.Components.Add(env);
+            this.Services.AddService(env);
+
             base.Initialize();
             
         }

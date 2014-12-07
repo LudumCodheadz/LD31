@@ -33,8 +33,12 @@ namespace CodheadzLD31.Components
 
         private void OnInput(Messages.InputChangeStateMessage obj)
         {
-            if(GameStateManager.CurrentState == GameStates.GameStates.MainMenu)
+            if (GameStateManager.CurrentState == GameStates.GameStates.MainMenu)
+            {
+                var levelManager = Game.Services.GetService< LevelManagerComponent>();
+                levelManager.SetLevel(1);
                 Messages.Messenger.Default.Publish(new Messages.GameStateChangeMessage(this, GameStates.GameStates.Playing));
+            }
         }
 
         protected override void LoadContent()
