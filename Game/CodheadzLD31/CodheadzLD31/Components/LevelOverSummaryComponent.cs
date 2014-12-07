@@ -116,9 +116,9 @@ namespace CodheadzLD31.Components
             base.Draw(gameTime);
 
             spriteBatch.BeginPixel();
-            spriteBatch.DrawString(largeFont, summaryText, summaryTextPosition, FontColor);
-            spriteBatch.DrawString(largeFont, jumpScore, jumpScorePosition, FontColor);
-            spriteBatch.DrawString(largeFont, totalScore, totalScorePosition, FontColor);
+            spriteBatch.DrawStringShaddow(largeFont, summaryText, summaryTextPosition, FontColor);
+            spriteBatch.DrawStringShaddow(largeFont, jumpScore, jumpScorePosition, FontColor);
+            spriteBatch.DrawStringShaddow(largeFont, totalScore, totalScorePosition, FontColor);
             spriteBatch.End();
         }
 

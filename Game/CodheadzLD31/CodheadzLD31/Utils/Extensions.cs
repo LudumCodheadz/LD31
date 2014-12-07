@@ -6,6 +6,18 @@ namespace CodheadzLD31.Utils
 {
     public static class Extensions
     {
+        public static void DrawStringShaddow(this SpriteBatch spriteBatch,SpriteFont spriteFont,string text, Vector2 position, Color color)
+        {
+            DrawStringShaddow(spriteBatch, spriteFont, text, position, color, Color.Black);
+        }
+
+        public static void DrawStringShaddow(this SpriteBatch spriteBatch,SpriteFont spriteFont,string text, Vector2 position, Color color, Color colorShaddow)
+        {
+            var shaddowPosition = position + new Vector2(1, 1);
+            spriteBatch.DrawString(spriteFont, text, shaddowPosition, colorShaddow);
+            spriteBatch.DrawString(spriteFont, text, position, color);
+        }
+
         public static void DrawLine(this SpriteBatch spriteBatch, Vector2 start, Vector2 end, Color color, Texture2D pixel )
         {
             DrawLine(spriteBatch, start, end, color, pixel, 2.0f);

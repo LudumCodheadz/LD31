@@ -29,7 +29,7 @@ namespace CodheadzLD31.Components
         {
             base.Draw(gameTime);
             spriteBatch.BeginPixel();
-            spriteBatch.DrawString(normalFont, state, new Vector2(50,50),Color.Red);
+            spriteBatch.DrawStringShaddow(normalFont, state, new Vector2(50, 50), Color.Red);
             spriteBatch.End();
         }
         

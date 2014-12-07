@@ -58,7 +58,7 @@ namespace CodheadzLD31.Components
         {
             base.Draw(gameTime);
             spriteBatch.BeginPixel();
-            spriteBatch.DrawString(largeFont, playText, playPosition, FontColor);
+            spriteBatch.DrawStringShaddow(largeFont, playText, playPosition, FontColor);
             spriteBatch.End();
         }
 
