@@ -72,6 +72,7 @@ namespace CodheadzLD31.Components
             base.LoadContent();
 
             bottomRoot = new BottomNode(this.Game);
+            bottomRoot.Offset = new Vector2(0, 35);
             turdNode = new TurdNode(this.Game);
         }
 

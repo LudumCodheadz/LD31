@@ -50,6 +50,7 @@
     <Compile Include="Components\LevelOverSummaryComponent.cs" />
     <Compile Include="Components\MainMenuComponent.cs" />
     <Compile Include="Components\PlayerComponent.cs" />
+    <Compile Include="Components\PlayerHudComponent.cs" />
     <Compile Include="Components\PlayerState.cs" />
     <Compile Include="GameStates\GameStateManager.cs" />
     <Compile Include="GameStates\GameStates.cs" />
@@ -126,6 +127,10 @@
     </Content>
     <Content Include="..\..\Content\bin\Sprites\Cloud.xnb">
       <Link>Content\Sprites\Cloud.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Content\bin\Sprites\TopCloud.xnb">
+      <Link>Content\Sprites\TopCloud.xnb</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

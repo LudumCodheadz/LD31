@@ -67,6 +67,10 @@ namespace CodheadzLD31
             this.Components.Add(env);
             this.Services.AddService(env);
 
+            var playerHud = new PlayerHudComponent(this);
+            this.Components.Add(playerHud);
+            this.Services.AddService(playerHud);
+
             base.Initialize();
             
         }
