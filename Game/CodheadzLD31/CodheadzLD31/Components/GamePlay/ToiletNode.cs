@@ -31,5 +31,7 @@ namespace CodheadzLD31.Components.GamePlay
                 return this.toiletNode.Sprite.Rectangle.Center;
             }
         }
+
+        public float Height { get { return this.toiletNode.Sprite.Rectangle.Height; } }
     }
 }

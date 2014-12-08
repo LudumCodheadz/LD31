@@ -35,8 +35,9 @@ namespace CodheadzLD31.Components
             }
 
             toiletNode = new ToiletNode(this.Game);
-            y = (this.GraphicsDevice.PresentationParameters.BackBufferWidth - (28 * 2)) / 2;
-            toiletNode.Offset = new Vector2(y, groundNodes.Offset.Y - (46 * 2));
+            toiletNode.Update(new GameTime());
+            var x = (this.GraphicsDevice.PresentationParameters.BackBufferWidth - (28 * 2)) / 2;
+            toiletNode.Offset = new Vector2(x, groundNodes.Offset.Y - toiletNode.Height);
 
             this.worldRoot.AddChild(toiletNode);
         }

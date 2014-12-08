@@ -119,6 +119,9 @@ namespace CodheadzLD31.Components
                     result.Level = levelManagerComponent.CurrentLevel;
                     result.FinalVelocity = turdNode.Velocity;
  
+                    var env = Game.Services.GetService<EnvironmentComponent>();
+                    result.WindSpeed = 1 + env.WindSpeed;
+
                     if (turdNode.Velocity < 0.35f)
                     {
                         state = PlayerState.Down;
@@ -152,7 +155,5 @@ namespace CodheadzLD31.Components
             bottomRoot.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
-
-
     }
 }

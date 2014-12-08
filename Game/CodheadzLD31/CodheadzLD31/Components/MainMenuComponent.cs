@@ -9,9 +9,16 @@ namespace CodheadzLD31.Components
 {
     public class MainMenuComponent:ComponentBase
     {
-        private string playText = "Press Space to Play";
+        private string playText = "Press Space to Start";
+        private string title = "Special Plops";
+        private string howToTextA = "1. Press any key to launch.";
+        private string howToTextB = "2. Press any key to deploy chute.";
+        private string howToTextC = "3. Press any key to drop.";
+
         private Vector2 playPosition;
         private TinyMessenger.TinyMessageSubscriptionToken inputToken;
+        private Vector2 titlePosition;
+        private Vector2 howToPosition = new Vector2(100, 340);
 
         public MainMenuComponent(LDGame game):base(game)
         {
@@ -36,7 +43,6 @@ namespace CodheadzLD31.Components
         {
             if (GameStateManager.CurrentState == GameStates.GameStates.MainMenu)
             {
-                //TODO: should decomplese these and fire a message
                 var levelManager = Game.Services.GetService<LevelManagerComponent>();
                 var playerHud = Game.Services.GetService<PlayerHudComponent>();
                 playerHud.StartSession();
@@ -50,14 +56,23 @@ namespace CodheadzLD31.Components
             base.LoadContent();
 
             int x = (int)(GraphicsDevice.PresentationParameters.BackBufferWidth - largeFont.MeasureString(playText).X)/2;
-            int y = GraphicsDevice.PresentationParameters.BackBufferHeight/2;
+            int y = 500;
             playPosition = new Vector2(x, y);
+            
+            x = (int)(GraphicsDevice.PresentationParameters.BackBufferWidth - largeFont.MeasureString(title).X)/2;
+            titlePosition = new Vector2(x, 200);
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Draw(gameTime);
             spriteBatch.BeginPixel();
+            spriteBatch.DrawStringShaddow(largeFont, title, titlePosition, FontColor);
+
+            spriteBatch.DrawStringShaddow(normalFont, howToTextA, howToPosition, Color.Yellow);
+            spriteBatch.DrawStringShaddow(normalFont, howToTextB, howToPosition + new Vector2(0, normalFont.LineSpacing), Color.Yellow);
+            spriteBatch.DrawStringShaddow(normalFont, howToTextC, howToPosition + new Vector2(0, normalFont.LineSpacing * 2), Color.Yellow);
+
             spriteBatch.DrawStringShaddow(largeFont, playText, playPosition, FontColor);
             spriteBatch.End();
         }

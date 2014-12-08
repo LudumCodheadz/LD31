@@ -16,6 +16,7 @@ namespace CodheadzLD31.Components.GamePlay
         private float gravityRate = 0.0f;
         private SpriteScreenNode turdBody;
         private SpriteScreenNode turdChute;
+        private SpriteScreenNode turdSplat;
         private Vector2 chuteCutDriftRate;
         private float velocity = 0f;
         private ChuteState chuteState;
@@ -28,6 +29,9 @@ namespace CodheadzLD31.Components.GamePlay
             environment = Game.Services.GetService<EnvironmentComponent>();
 
             new ScreenNode(this.Game);
+
+            turdSplat = new SpriteScreenNode(Game, "Sprites\\SplatTurd");
+            this.AddChild(turdSplat);
 
             turdChute = new SpriteScreenNode(Game, "Sprites\\Chute");
             this.AddChild(turdChute);
@@ -44,6 +48,8 @@ namespace CodheadzLD31.Components.GamePlay
 
         public void ResetPlayerPosition()
         {
+            turdSplat.IsVisible = false;
+            turdBody.IsVisible = true;
             turdBody.Offset = new Vector2(0, 0);
             SetChutOffset();
             turdChute.IsVisible = false;
@@ -156,8 +162,20 @@ namespace CodheadzLD31.Components.GamePlay
 
             gravityRate = 0f;
             velocity = 0f;
-            int y = groundY - turdBody.Sprite.Rectangle.Height;
-            turdBody.Offset = new Vector2(turdBody.Offset.X, y);
+            int y = groundY - turdSplat.Sprite.Rectangle.Height;
+            turdSplat.Offset = new Vector2(turdBody.Offset.X, y);
+            turdBody.IsVisible = false;
+            turdSplat.IsVisible = true;
+            Random rnd = new Random();
+            if(rnd.NextDouble() > 0.5f)
+            {
+                turdSplat.HorizontalFlip = true;
+            }
+            else
+            {
+                turdSplat.HorizontalFlip = false;
+            }
+
         }
 
         public Point TurdCenter

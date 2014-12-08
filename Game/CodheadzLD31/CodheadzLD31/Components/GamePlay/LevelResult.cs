@@ -22,9 +22,11 @@ namespace CodheadzLD31.Components.GamePlay
                 float factor = 1;
                 if (Dead)
                     factor = 0.25f;
-                return (int)((1000 - Math.Abs(TurdCenter.X - ToiletCenter.X)) * factor);
+                return (int)((200 - Math.Abs(TurdCenter.X - ToiletCenter.X)) * factor * WindSpeed);
             }
         }
+
+        public float WindSpeed { get; set; }
 
         public int TotalScore { get; set; }
 

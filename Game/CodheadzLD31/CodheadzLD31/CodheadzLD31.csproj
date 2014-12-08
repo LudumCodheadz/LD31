@@ -135,6 +135,10 @@
       <Link>Content\Sprites\TopCloud.xnb</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\..\Content\bin\Sprites\SplatTurd.xnb">
+      <Link>Content\Sprites\SplatTurd.xnb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
